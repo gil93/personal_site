@@ -1,0 +1,8 @@
+@mixin table( $table-layout: fixed ) {
+	@extend .table;
+	@extend .#{$table-layout} !optional;
+}
+@mixin align-cell( $cell: cell-1, $vertical-align: middle ) {
+	@extend .#{$cell} !optional;
+	@extend .cell-align-#{$vertical-align} !optional;
+}
