@@ -7,6 +7,7 @@ import store from './store';
 import Layout from './containers/layout';
 import Admin from './containers/admin';
 import Auth from './containers/auth';
+import Index from './containers/index';
 
 ReactDOM.render(
 
@@ -14,9 +15,9 @@ ReactDOM.render(
 
 		<Router history={browserHistory}>
 
-			<Route path="/">
+			<Route path="/" component={Layout}>
 
-				<IndexRoute component={Layout} />
+				<IndexRoute component={Index} />
 
 				<Route path="admin" component={Admin} />
 

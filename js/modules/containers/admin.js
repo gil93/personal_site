@@ -14,11 +14,17 @@ import * as admin_actions from './../actions/admin';
 
 export default class Admin extends React.Component {
 
+	constructor( props ) {
+
+		super( props );
+
+	}
+
 	componentWillMount() {
 
 		var props = this.props;
 
-		return props.dispatch( admin_actions.get_admin() )
+		props.dispatch( admin_actions.get_admin() )
 
 			.then( response => {
 
@@ -28,8 +34,6 @@ export default class Admin extends React.Component {
 					'admin': response.data
 
 				});
-
-				props.router.push( '/admin' );
 
 			})
 
@@ -50,7 +54,13 @@ export default class Admin extends React.Component {
 
 	render() {
 
-		return <h1>ADMIN :D</h1>
+		if ( this.props.admin.signed_in ) {
+
+			return <h1>ADMIN :D</h1>
+
+		}
+
+		return null;
 
 	}
 

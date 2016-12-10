@@ -14,9 +14,15 @@ import * as admin_actions from './../actions/admin';
 
 export default class Auth extends React.Component {
 
+	constructor( props ) {
+
+		super( props );
+
+	}
+
 	componentWillMount() {
 
-		var	props = this.props;
+		var props = this.props;
 
 		if ( props.location.pathname.match( '/sign_out' ) !== null ) {
 
@@ -24,7 +30,7 @@ export default class Auth extends React.Component {
 
 				'type': 'logout_admin'
 
-			});
+			})
 
 			window.sessionStorage.token = undefined;
 
@@ -32,7 +38,7 @@ export default class Auth extends React.Component {
 
 		} else {
 
-			return props.dispatch( admin_actions.get_admin() )
+			props.dispatch( admin_actions.get_admin() )
 
 				.then( response => {
 
@@ -113,19 +119,25 @@ export default class Auth extends React.Component {
 
 	render() {
 
-		return <div className="form">
+		if ( ! this.props.admin.signed_in || this.props.admin.signing_in ) {
 
-			<form onSubmit={ this.handleSubmit.bind( this ) } name="admin">
+			return <div className="form">
 
-				<input type="email" name="email" placeholder="enter_email" />
+				<form onSubmit={ this.handleSubmit.bind( this ) } name="admin">
 
-				<input type="password" name="password" placeholder="enter_email" />
+					<input type="email" name="email" placeholder="enter_email" />
 
-				<button type="submit">Submit</button>
+					<input type="password" name="password" placeholder="enter_email" />
 
-			</form>
+					<button type="submit">Submit</button>
 
-		</div>
+				</form>
+
+			</div>
+
+		}
+
+		return null;
 
 	}
 

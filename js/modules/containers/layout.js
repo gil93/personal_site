@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import * as admin_actions from './../actions/admin';
 
@@ -14,17 +15,65 @@ import * as admin_actions from './../actions/admin';
 
 export default class Layout extends React.Component {
 
-	componentWillMount() {
+	constructor( props ) {
 
-		this.props.dispatch( admin_actions.get_admin() );
-
-		// if ( ! this.props.signed_in )
+		super( props );
 
 	}
 
 	render() {
 
-		return null;
+		if ( this.props.admin.signed_in ) {
+
+			return <div>
+
+				<nav>
+
+					<ul>
+
+						<li>
+
+							<a>Gil</a>
+
+						</li>
+
+						<li>
+
+							<a>Gil</a>
+
+						</li>
+
+						<li>
+
+							<a>Gil</a>
+
+						</li>
+
+						<li>
+
+							<a>Gil</a>
+
+						</li>
+
+					</ul>
+
+				</nav>
+
+				<div>
+
+					{ this.props.children }
+
+				</div>
+
+			</div>
+
+		}
+
+		return <div>
+
+			{ this.props.children }
+
+		</div>
 
 	}
 
