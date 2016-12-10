@@ -63,7 +63,6 @@ export default class Auth extends React.Component {
 
 	}
 
-
 	handleSubmit( e ) {
 
 		e.preventDefault();
