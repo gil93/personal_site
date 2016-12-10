@@ -18,7 +18,7 @@ export default class Admin extends React.Component {
 
 		var props = this.props;
 
-		props.dispatch( admin_actions.get_admin() )
+		return props.dispatch( admin_actions.get_admin() )
 
 			.then( response => {
 

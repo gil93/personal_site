@@ -32,7 +32,7 @@ export default class Auth extends React.Component {
 
 		} else {
 
-			props.dispatch( admin_actions.get_admin() )
+			return props.dispatch( admin_actions.get_admin() )
 
 				.then( response => {
 
@@ -79,7 +79,7 @@ export default class Auth extends React.Component {
 
 		}
 
-		props.dispatch( admin_actions.sign_in( data ) )
+		return props.dispatch( admin_actions.sign_in( data ) )
 
 			.then( response => {
 
