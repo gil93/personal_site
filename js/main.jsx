@@ -1,1 +1,0 @@
-import { ReactMain } from './modules/react_main.jsx';
