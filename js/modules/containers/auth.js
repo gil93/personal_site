@@ -18,8 +18,6 @@ export default class Auth extends React.Component {
 
 		var	props = this.props;
 
-		console.log( props.location.pathname.match( '/sign_out' ) );
-
 		if ( props.location.pathname.match( '/sign_out' ) !== null ) {
 
 			props.dispatch({
