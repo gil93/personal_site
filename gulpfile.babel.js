@@ -10,12 +10,13 @@ import concat from 'gulp-concat';
 import browserify from 'browserify';
 import watchify from 'watchify';
 import tap from 'gulp-tap';
-import buffer from 'gulp-buffer';
+import buffer from 'vinyl-buffer';
 import babelify from 'babelify';
 import sourcemap from 'gulp-sourcemaps';
 import watch from 'gulp-watch';
 import strip from 'gulp-strip-comments';
 import shell from 'gulp-shell';
+import source from 'vinyl-source-stream';
 
 gulp.task( 'db:drop', shell.task([
 
@@ -25,61 +26,46 @@ gulp.task( 'db:drop', shell.task([
 
 gulp.task( 'js', () => {
 
-	return gulp.src( './js/main.jsx',  {
+	watchify( browserify({
 
-		read: false
+		entries: './js/main.js',
+		debug: true,
+		cache: {},
+		packageCache: {},
+		fullPaths: false
 
-	})
+	}))
 
-		.pipe( tap( file => {
+		.transform( babelify.configure({
 
-			file.contents = watchify( browserify( file.path, {
+			presets: ['es2015', 'stage-1', 'react'],
+			plugins: ['transform-decorators-legacy']
 
-				entries: './js/main.jsx',
-				extensions: ['.jsx'],
-				debug: true,
-				cache: {},
-				packageCache: {},
-				fullPaths: true
+		}))
+
+		.bundle()
+
+			.on( 'error', error => {
+
+				gutil.log( 'Browserify Error', error );
 
 			})
 
-			.transform( babelify.configure({
+	.pipe( source( 'bundle.js' ) )
 
-				presets: ['es2015', 'react'],
-				extensions: ['.jsx']
+	.pipe( buffer() )
 
-			})))
+	.pipe( sourcemap.init({
 
-			.bundle()
+		loadMaps: true
 
-				.on( 'error', error => {
+	}))
 
-					gutil.log( 'Browserify Error', error.message );
+	.pipe( sourcemap.write( './' ) )
 
-				})
+	.pipe( strip() )
 
-			;
-
-		}))
-
-		.pipe( buffer() )
-
-		.pipe( strip() )
-
-		.pipe( rename( 'bundle.js' ) )
-
-		.pipe( sourcemap.init({
-
-			loadMaps: true
-
-		}))
-
-		.pipe( sourcemap.write( './' ) )
-
-		.pipe( gulp.dest( './public/' ) )
-
-	;
+	.pipe(gulp.dest( './public/' ) );
 
 });
 
