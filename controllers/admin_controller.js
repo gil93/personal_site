@@ -45,7 +45,8 @@ var routes = {
 						var admin_secret = {
 
 							_id: admin._id,
-							email: admin.email
+							email: admin.email,
+							password: admin.password
 
 						};
 
@@ -78,11 +79,13 @@ var routes = {
 
 		if ( token ) {
 
-			jwt.verify( token, app.get( 'superSecret' ), ( error, decoded ) => {
+
+			jwt.verify( token, this.req.app.get( 'superSecret' ), ( error, decoded ) => {
 
 				if ( error ) {
 
-					return this.res.json({
+
+					return this.res.status( 403 ).send({
 
 						success: false,
 						message: 'Failed to authenticate token.'
@@ -92,7 +95,14 @@ var routes = {
 				} else {
 
 					this.req.decoded = decoded;
-					this.next();
+					return this.res.status( 200 ).send({
+
+						success: true,
+						message: 'Good!',
+						id: decoded._id,
+						email: decoded.email
+
+					});
 
 				}
 
