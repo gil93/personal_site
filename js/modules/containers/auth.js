@@ -119,7 +119,7 @@ export default class Auth extends React.Component {
 
 	render() {
 
-		if ( ! this.props.admin.signed_in || this.props.admin.signing_in ) {
+		if ( ! this.props.admin.signed_in && ! this.props.admin.signing_in == false ) {
 
 			return <div className="form">
 
