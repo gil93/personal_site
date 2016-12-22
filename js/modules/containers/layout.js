@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import * as admin_actions from './../actions/admin';
+import NavBar from './../presenters/navbar';
 
 @connect( store => {
 
@@ -27,37 +28,7 @@ export default class Layout extends React.Component {
 
 			return <div>
 
-				<nav>
-
-					<ul>
-
-						<li>
-
-							<a>Gil</a>
-
-						</li>
-
-						<li>
-
-							<a>Gil</a>
-
-						</li>
-
-						<li>
-
-							<a>Gil</a>
-
-						</li>
-
-						<li>
-
-							<a>Gil</a>
-
-						</li>
-
-					</ul>
-
-				</nav>
+				{ new NavBar().render() }
 
 				<div>
 
