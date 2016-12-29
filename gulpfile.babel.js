@@ -124,7 +124,7 @@ gulp.task( 'default', [
 
 	'js',
 	'scss',
-	'watch',
-	'rev'
+	'rev',
+	'watch'
 
 ]);
