@@ -1,86 +1,32 @@
 @import url('https://fonts.googleapis.com/css?family=Josefin+Slab:700|Raleway:300');
 
-// .type-raleway {
-// 	font-family: 'Raleway', sans-serif;
-// }
-// .type-josefin {
-// 	font-family: 'Josefin Slab', serif;
-// }
-// h1, .h1, h2, .h2 {
-// 	@extend .type-josefin;
-// }
-// h3, .h3, h4, .h4, h5, .h5, h6, .h6, p, span, li  {
-// 	@extend .type-raleway;
-// }
-// // Laptop / Desktop - Base 18px;
-// @media (min-width: $large + 1px) {
-// 	h1, .h1 {
-// 		font-size: 36px;
-// 	}
-// 	h2, .h2 {
-// 		font-size: 27px;
-// 	}
-// 	h3, .h3 {
-// 		font-size: 21px;
-// 	}
-// 	h4, .h4 {
-// 		font-size: 20px;
-// 	}
-// 	h5, .h5 {
-// 		font-size: 15px;
-// 	}
-// 	h6, .h6 {
-// 		font-size: 14px;
-// 	}
-// 	p, span, li {
-// 		font-size: 16px;
-// 	}
-// }
-// // Tablet - Base 16px;
-// @media (min-width: $medium) and (max-width: $large ) {
-// 	h1, .h1 {
-// 		font-size: 32px;
-// 	}
-// 	h2, .h2 {
-// 		font-size: 24px;
-// 	}
-// 	h3, .h3 {
-// 		font-size: 19px;
-// 	}
-// 	h4, .h4 {
-// 		font-size: 18px;
-// 	}
-// 	h5, .h5 {
-// 		font-size: 14px;
-// 	}
-// 	h6, .h6 {
-// 		font-size: 12px;
-// 	}
-// }
-// // Tablet-down
-// @media (max-width: $large) {
-// 	p, span, li {
-// 		font-size: 14px;
-// 	}
-// }
-// // Mobile - Base 14px;
-// @media (max-width: $medium - 1px ) {
-// 	h1, .h1 {
-// 		font-size: 28px;
-// 	}
-// 	h2, .h2 {
-// 		font-size: 21px;
-// 	}
-// 	h3, .h3 {
-// 		font-size: 16px;
-// 	}
-// 	h4, .h4 {
-// 		font-size: 15px;
-// 	}
-// 	h5, .h5 {
-// 		font-size: 12px;
-// 	}
-// 	h6, .h6 {
-// 		font-size: 11px;
-// 	}
-// }
+.type-raleway {
+	font-family: 'Raleway', sans-serif;
+}
+.type-josefin {
+	font-family: 'Josefin Slab', serif;
+}
+h1, .h1, h2 {
+	@extend .type-josefin;
+}
+h3, h4, h5, h6, p, span, li  {
+	@extend .type-raleway;
+}
+
+/* Extra small devices (phones, less than 768px) */
+/* No media query since this is the default in Bootstrap */
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+
+}
