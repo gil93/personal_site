@@ -27,6 +27,8 @@ app.use( '/api', api_routes );
 
 app.use( '/public/', express.static( __dirname + '/public/' ) );
 
+app.use( '/images/', express.static( __dirname + '/images/' ) );
+
 app.get( '*', ( req, res ) => {
 
 	res.sendFile( __dirname + '/index.html' );
