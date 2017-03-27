@@ -8,7 +8,7 @@ import NavBar from './../presenters/navbar';
 
 	return {
 
-		admin: store.admin
+		'admin': store.admin
 
 	}
 
