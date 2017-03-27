@@ -2,14 +2,14 @@ export default ( state = {
 
 	admin: {
 
-		message: null,
-		success: null,
-		token: null
+		'message': null,
+		'success': null,
+		'token': null
 
 	},
-	signing_in: false,
-	signed_in: false,
-	error: null
+	'signing_in': false,
+	'signed_in': false,
+	'error': null
 
 }, action ) => {
 
