@@ -6,7 +6,7 @@ import * as admin_actions from './../actions/admin';
 
 	return {
 
-		admin: store.admin
+		'admin': store.admin
 
 	}
 
