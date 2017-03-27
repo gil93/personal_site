@@ -1,0 +1,164 @@
+@mixin transform-origin ($origin) {
+	-moz-transform-origin: $origin;
+	-o-transform-origin: $origin;
+	-ms-transform-origin: $origin;
+	-webkit-transform-origin: $origin;
+	transform-origin: $origin;
+}
+// generic transform
+@mixin transform($transforms) {
+	-moz-transform: $transforms;
+	-o-transform: $transforms;
+	-ms-transform: $transforms;
+	-webkit-transform: $transforms;
+	transform: $transforms;
+}
+// rotate
+@mixin rotate ($deg) {
+	@include transform(rotate(#{$deg}deg));
+}
+// scale
+@mixin scale($scale) {
+	@include transform(scale($scale));
+}
+// translate
+@mixin translate ($x, $y) {
+	@include transform(translate($x, $y));
+}
+@mixin translateX ($x) {
+	@include transform(translateX($x));
+}
+@mixin translateY ($y) {
+	@include transform(translateY($y));
+}
+@mixin translate3d ($x, $y, $z) {
+	@include transform(translate3d($x, $y, $z));
+}
+// skew
+@mixin skew ($x, $y) {
+	@include transform(skew(#{$x}deg, #{$y}deg));
+}
+@mixin transition($transition...) {
+	-moz-transition: $transition;
+	-o-transition: $transition;
+	-webkit-transition: $transition;
+	transition: $transition;
+}
+@mixin transition-property($property...) {
+	-moz-transition-property: $property;
+	-o-transition-property: $property;
+	-webkit-transition-property: $property;
+	transition-property: $property;
+}
+@mixin transition-duration($duration...) {
+	-moz-transition-property: $duration;
+	-o-transition-property: $duration;
+	-webkit-transition-property: $duration;
+	transition-property: $duration;
+}
+@mixin transition-timing-function($timing...) {
+	-moz-transition-timing-function: $timing;
+	-o-transition-timing-function: $timing;
+	-webkit-transition-timing-function: $timing;
+	transition-timing-function: $timing;
+}
+@mixin transition-delay($delay...) {
+	-moz-transition-delay: $delay;
+	-o-transition-delay: $delay;
+	-webkit-transition-delay: $delay;
+	transition-delay: $delay;
+}
+@mixin opacity($value) {
+	$IEValue: $value*100;
+	opacity: $value;
+	-ms-filter:  "progid:DXImageTransform.Microsoft.Alpha(Opacity="+$IEValue+")";
+	filter: alpha(opacity=$IEValue);
+}
+@mixin keyframes($animation-name) {
+	@-moz-keyframes #{$animation-name} {
+		@content;
+	}
+	@-ms-keyframes #{$animation-name} {
+		@content;
+	}
+	@-o-keyframes #{$animation-name} {
+		@content;
+	}
+	@-webkit-keyframes #{$animation-name}{
+		@content;
+	}
+	@keyframes #{$animation-name} {
+		@content;
+	}
+}
+@mixin animation($str) {
+	-moz-animation: #{$str};
+	-ms-animation: #{$str};
+	-o-animation: #{$str};
+	-webkit-animation: #{$str};
+	animation: #{$str};
+}
+
+@mixin animation-name($str) {
+	-moz-animation-name: #{$str};
+	-ms-animation-name: #{$str};
+	-o-animation-name: #{$str};
+	-webkit-animation-name: #{$str};
+	animation-name: #{$str};
+}
+
+@mixin animation-duration($str) {
+	-moz-animation-duration: #{$str};
+	-ms-animation-duration: #{$str};
+	-o-animation-duration: #{$str};
+	-webkit-animation-duration: #{$str};
+	animation-duration: #{$str};
+}
+
+@mixin animation-timing-function($str) {
+	-moz-animation-timing-function: #{$str};
+	-ms-animation-timing-function: #{$str};
+	-o-animation-timing-function: #{$str};
+	-webkit-animation-timing-function: #{$str};
+	animation-timing-function: #{$str};
+}
+
+@mixin animation-fill-mode($str) {
+	-moz-animation-fill-mode: #{$str};
+	-ms-animation-fill-mode: #{$str};
+	-o-animation-fill-mode: #{$str};
+	-webkit-animation-fill-mode: #{$str};
+	animation-fill-mode: #{$str};
+}
+// Animations
+@mixin keyframe ($animation-name, $easing) {
+	@-webkit-keyframes $animation_name{
+		@content;
+	}
+	@-moz-keyframes $animation_name {
+		@content;
+	}
+	@-o-keyframes $animation_name {
+		@content;
+	}
+	@keyframes $animation_name {
+		@content;
+	}
+}
+@mixin aspect-ratio($width, $height, $class ) {
+	position: relative;
+
+	&:before {
+		display: block;
+		content: "";
+		width: 100%;
+		padding-top: ($height / $width) * 100%;
+	}
+	.#{$class} {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+	}
+}
