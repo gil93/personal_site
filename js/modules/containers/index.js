@@ -119,7 +119,7 @@ export default class Index extends React.Component {
 					polygons = svg.getElementsByTagName( 'polygon' )
 				;
 
-				polygons[0].setAttribute( 'points', self.sineAnimate( ( Math.abs( svg.getAttribute( 'height' ) / 2 ) - 15 ), 0.08, window.outerWidth, c * 1.25 ) );
+				polygons[0].setAttribute( 'points', self.sineAnimate( ( Math.abs( svg.getAttribute( 'height' ) / 2 ) - 15 ), 0.08, window.outerWidth, c * .75 ) );
 
 			}
 
