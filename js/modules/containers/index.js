@@ -27,9 +27,11 @@ export default class Index extends React.Component {
 
 		window.addEventListener( 'mousewheel', ( e ) => {
 
-			self.handleScroll( e, self );
+			self.handleScroll( e, self.getScrollProperties() );
 
 		});
+
+		self.sineAnimation();
 
 	}
 
@@ -39,37 +41,153 @@ export default class Index extends React.Component {
 
 	    window.removeEventListener( 'mousewheel', ( e ) => {
 
-	    	self.handleScroll( e, self );
+	    	self.handleScroll( e, self.getScrollProperties() );
 
 	    });
 
 	}
 
-	handleScroll( e, self ) {
+	getScrollProperties() {
 
-		if ( self.props.scroll.homepage.scrolling == true ) return;
+		var self = this,
+			homepage = self.props.scroll.homepage
+		;
 
-		if ( e.deltaY < 0 ) {
+		return {
 
-			if ( ( ( self.props.scroll.homepage.scrollY - 1 ) * -1 ) >= self.props.scroll.homepage.scrollPanes.length ) return;
-
-			self.props.scroll.homepage.scrolling = true;
-
-			self.props.scroll.homepage.scrollY = self.props.scroll.homepage.scrollY - 1;
-
-		} else {
-
-			if ( self.props.scroll.homepage.scrollY >= 0 ) return;
-
-			self.props.scroll.homepage.scrolling = true;
-
-			self.props.scroll.homepage.scrollY = self.props.scroll.homepage.scrollY + 1;
+			'self': self,
+			'scrolling': homepage.scrolling,
+			'scrollY': homepage.scrollY,
+			'scrollPanes': homepage.scrollPanes,
+			'scrollPanesContainer': homepage.scrollPanesContainer,
+			'transitionend': homepage.transitionend
 
 		}
 
-		var translateY = self.props.scroll.homepage.scrollY / self.props.scroll.homepage.scrollPanes.length * 100;
+	}
 
-		self.props.scroll.homepage.scrollPanesContainer.setAttribute( 'style',
+	setScrollProperties( args ) {
+
+		this.props.scroll.homepage.scrolling = args.scrolling;
+		this.props.scroll.homepage.scrollY = args.scrollY;
+		this.props.scroll.homepage.scrollPanes = args.scrollPanes;
+		this.props.scroll.homepage.scrollPanesContainer = args.scrollPanesContainer;
+		this.props.scroll.homepage.transitionend = args.transitionend;
+
+	}
+
+	sineAnimation() {
+
+		var self = this,
+			svgs = document.getElementsByTagName( 'svg' ),
+			counter = 0
+		;
+
+		for ( var i = 0; i < svgs.length; i++ ) {
+
+			var svg = svgs[i],
+				polygon = svg.getElementsByTagName( 'polygon' )[0]
+			;
+
+			if ( i == svgs.length - 1 ) {
+
+				break;
+
+			} else {
+
+				var this_section = svgs[i].parentNode.parentNode.parentNode.parentNode,
+					next_section = this_section.nextElementSibling,
+					color = window.getComputedStyle( next_section, null )
+						.getPropertyValue( 'background-color' )
+				;
+
+				svg.setAttribute( 'stroke', color );
+
+				polygon.setAttribute( 'fill', color );
+
+			}
+
+		}
+
+		function draw() {
+
+			var c = ++counter / 20;
+
+			for ( var i = 0; i < svgs.length; i++ ) {
+
+				var svg = svgs[i],
+					polygons = svg.getElementsByTagName( 'polygon' )
+				;
+
+				polygons[0].setAttribute( 'points', self.sineAnimate( ( Math.abs( svg.getAttribute( 'height' ) / 2 ) - 15 ), 0.08, window.outerWidth, c * 1.25 ) );
+
+			}
+
+			window.requestAnimationFrame( draw );
+
+		}
+
+		draw();
+
+	}
+
+	sineAnimate( amp, freq, length, i ) {
+
+		var points = [ 0, amp * 2 ],
+			width = length,
+			x = 0,
+			y
+		;
+
+		while ( x++ <= width ) {
+
+			y = Math.sin( x * freq + i );
+
+			points.push( [ x, y * amp / 2 + amp / 2 ].join( ' ' ) );
+
+		}
+
+		points.push( [ length, amp * 2 ].join( ' ' ) );
+
+		points.push( [ 0, amp * 2 ].join( ' ' ) );
+
+		return points;
+
+	}
+
+	handleScroll( e, args ) {
+
+		var self = args.self,
+			scrolling = args.scrolling,
+			scrollY = args.scrollY,
+			scrollPanes = args.scrollPanes,
+			scrollPanesContainer = args.scrollPanesContainer,
+			transitionend = args.transitionend
+		;
+
+		if ( scrolling == true ) return;
+
+		if ( e.deltaY < 0 ) {
+
+			if ( ( ( scrollY - 1 ) * -1 ) >= scrollPanes.length ) return;
+
+			scrolling = true;
+
+			scrollY = scrollY - 1;
+
+		} else {
+
+			if ( scrollY >= 0 ) return;
+
+			scrolling = true;
+
+			scrollY = scrollY + 1;
+
+		}
+
+		var translateY = scrollY / scrollPanes.length * 100;
+
+		scrollPanesContainer.setAttribute( 'style',
 
 			`-o-transform: translate3d(0px, ${translateY}%, 0px);
 			-ms-transform: translate3d(0px, ${translateY}%, 0px);
@@ -79,9 +197,9 @@ export default class Index extends React.Component {
 
 		);
 
-		for ( var i = 0; i < self.props.scroll.homepage.transitionend.length; i++ ) {
+		for ( var i = 0; i < transitionend.length; i++ ) {
 
-			self.props.scroll.homepage.scrollPanesContainer.addEventListener( self.props.scroll.homepage.transitionend[i], function ( e ) {
+			scrollPanesContainer.addEventListener( transitionend[i], function ( e ) {
 
 				e.target.removeEventListener( e.type, self.not_scrolling );
 
@@ -90,6 +208,16 @@ export default class Index extends React.Component {
 			});
 
 		}
+
+		self.setScrollProperties({
+
+			'scrolling': scrolling,
+			'scrollY': scrollY,
+			'scrollPanes': scrollPanes,
+			'scrollPanesContainer': scrollPanesContainer,
+			'transitionend': transitionend
+
+		});
 
 	}
 
@@ -113,27 +241,17 @@ export default class Index extends React.Component {
 
 					<div className="col-lg-12">
 
-						<div class="wave-container">
+						<div className="wave-wrapper">
 
-							<svg viewBox="0 0 100 20">
+							<div className="wave-container">
 
-								<defs>
+								<svg stroke="#000000" viewBox="0 0 30 100" preserveAspectRatio="none" height="100" width="200">
 
-							    	<pattern id="wave" x="0" y="0" width="100" height="20" patternUnits="userSpaceOnUse">
+									<polygon fill="#000000"></polygon>
 
-							    		<path id="wavePath" d="M-40 9 Q-30 7 -20 9 T0 9 T20 9 T40 9 T60 9 T80 9 T100 9 T120 9 V20 H-40z" fill="#000000">
+								</svg>
 
-							        		<animateTransform attributeName="transform" type="translate" begin="0s" dur="1.5s" from="0,0" to="40,0" repeatCount="indefinite" />
-
-							    		</path>
-
-							    	</pattern>
-
-								</defs>
-
-								<polygon points="0,0 100,0 100,20 0,20" fill="url(#wave)"></polygon>
-
-							</svg>
+							</div>
 
 						</div>
 
@@ -147,13 +265,6 @@ export default class Index extends React.Component {
 
 		this.props.scroll.homepage.scrollY = 0;
 		this.props.scroll.homepage.scrollPanes = scrollPanes;
-
-		// anime({
-
-		// 	targets: 'wave',
-
-
-		// });
 
 		return scrollPanes;
 

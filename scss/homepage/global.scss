@@ -10,6 +10,29 @@
 	}
 	.section {
 		height: 100%;
+
+		[class*="col-"] {
+			padding: 0px;
+		}
+		.wave-wrapper {
+			display: table;
+			table-layout: fixed;
+			height: 100%;
+			width: 100%;
+		}
+		.wave-container {
+			display: table-cell;
+			vertical-align: bottom;
+			width: 100%;
+			overflow: hidden;
+
+			svg {
+				width: 100%;
+				stroke-width: 4;
+				fill: none;
+				@include translateY( 65px );
+			}
+		}
 	}
 	.section-1 {
 		background-color: white;
