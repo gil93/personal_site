@@ -36,6 +36,23 @@
 	}
 	.section-1 {
 		background-color: white;
+
+		.introduction {
+			display: table;
+			table-layout: fixed;
+			height: 100%;
+			@include translateY(-100%);
+		}
+		.intro-wrapper {
+			display: table-cell;
+			vertical-align: middle;
+
+			p {
+				max-width: 768px;
+				margin-left: auto;
+				margin-right: auto;
+			}
+		}
 	}
 	.section-2 {
 		background-color: black;
