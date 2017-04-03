@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as admin_actions from './../actions/scroll';
 import anime from 'animejs';
+import SineCurve from './dom/sine_curve';
 
 @connect( store => {
 
@@ -79,33 +80,26 @@ export default class Index extends React.Component {
 	sineAnimation() {
 
 		var self = this,
-			svgs = document.getElementsByTagName( 'svg' ),
+			svgs = document.getElementsByClassName( 'wave-svg' ),
+			svg_objects = [],
+			freq = 0.08,
+			length = window.outerWidth,
 			counter = 0
 		;
 
 		for ( var i = 0; i < svgs.length; i++ ) {
 
-			var svg = svgs[i],
-				polygon = svg.getElementsByTagName( 'polygon' )[0]
-			;
+			var svg_object = new SineCurve( svgs[i], {
 
-			if ( i == svgs.length - 1 ) {
+				'amp': Math.abs( ( svgs[i].getAttribute( 'height' ) / 2 ) - 15 ),
+				'freq': freq,
+				'length': length
 
-				break;
+			});
 
-			} else {
+			if ( i !== svgs.length - 1 ) svg_object.set_color();
 
-				var this_section = svgs[i].parentNode.parentNode.parentNode.parentNode,
-					next_section = this_section.nextElementSibling,
-					color = window.getComputedStyle( next_section, null )
-						.getPropertyValue( 'background-color' )
-				;
-
-				svg.setAttribute( 'stroke', color );
-
-				polygon.setAttribute( 'fill', color );
-
-			}
+			svg_objects.push( svg_object );
 
 		}
 
@@ -113,45 +107,13 @@ export default class Index extends React.Component {
 
 			var c = ++counter / 20;
 
-			for ( var i = 0; i < svgs.length; i++ ) {
-
-				var svg = svgs[i],
-					polygons = svg.getElementsByTagName( 'polygon' )
-				;
-
-				polygons[0].setAttribute( 'points', self.sineAnimate( ( Math.abs( svg.getAttribute( 'height' ) / 2 ) - 15 ), 0.08, window.outerWidth, c * .75 ) );
-
-			}
+			for ( var i = 0; i < svg_objects.length; i++ ) svg_objects[i].animate_polygon( c );
 
 			window.requestAnimationFrame( draw );
 
 		}
 
 		draw();
-
-	}
-
-	sineAnimate( amp, freq, length, i ) {
-
-		var points = [ 0, amp * 2 ],
-			width = length,
-			x = 0,
-			y
-		;
-
-		while ( x++ <= width ) {
-
-			y = Math.sin( x * freq + i );
-
-			points.push( [ x, y * amp / 2 + amp / 2 ].join( ' ' ) );
-
-		}
-
-		points.push( [ length, amp * 2 ].join( ' ' ) );
-
-		points.push( [ 0, amp * 2 ].join( ' ' ) );
-
-		return points;
 
 	}
 
@@ -235,6 +197,48 @@ export default class Index extends React.Component {
 
 		for ( var i = 0; i < scrollPaneCount; i++ ) {
 
+			if ( i == 0 ) {
+
+				scrollPanes.push(
+
+					<div className={ `section section-${( i + 1)} row` } key={ `${( i + 1 )}` }>
+
+						<div className="waves col-lg-12">
+
+							<div className="wave-wrapper">
+
+								<div className="wave-container">
+
+									<svg className="wave-svg" stroke="#000000" viewBox="0 0 30 100" preserveAspectRatio="none" height="100" width="200">
+
+										<polygon fill="#000000"></polygon>
+
+									</svg>
+
+								</div>
+
+							</div>
+
+						</div>
+
+						<div className="introduction col-lg-12">
+
+							<div className="intro-wrapper">
+
+								<p>Hi. I’m Gil, a Full-stack Web Developer based in Brooklyn, NY.</p>
+
+							</div>
+
+						</div>
+
+					</div>
+
+				);
+
+				continue;
+
+			}
+
 			scrollPanes.push(
 
 				<div className={ `section section-${( i + 1)} row` } key={ `${( i + 1 )}` }>
@@ -245,7 +249,7 @@ export default class Index extends React.Component {
 
 							<div className="wave-container">
 
-								<svg stroke="#000000" viewBox="0 0 30 100" preserveAspectRatio="none" height="100" width="200">
+								<svg className="wave-svg" stroke="#000000" viewBox="0 0 30 100" preserveAspectRatio="none" height="100" width="200">
 
 									<polygon fill="#000000"></polygon>
 
