@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import SineAnimation from './dom/sine_animation';
 import * as index_actions from './../actions/index';
+import SineAnimation from './../dom/sine_animation';
+import ScrollPane from './../dom/scroll_pane';
 
 @connect( store => {
 
