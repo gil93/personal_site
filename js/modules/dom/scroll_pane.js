@@ -26,19 +26,19 @@ export default class ScrollPane {
 
 		if ( e.deltaY < 0 ) {
 
-			if ( ( ( self.scrollY - 1 ) * -1 ) >= self.scrollPanes.length ) return;
-
-			self.scrolling = true;
-
-			self.scrollY = self.scrollY - 1;
-
-		} else {
-
 			if ( self.scrollY >= 0 ) return;
 
 			self.scrolling = true;
 
 			self.scrollY = self.scrollY + 1;
+
+		} else {
+
+			if ( ( ( self.scrollY - 1 ) * -1 ) >= self.scrollPanes.length ) return;
+
+			self.scrolling = true;
+
+			self.scrollY = self.scrollY - 1;
 
 		}
 
