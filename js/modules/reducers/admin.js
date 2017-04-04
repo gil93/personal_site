@@ -1,6 +1,6 @@
 export default ( state = {
 
-	admin: {
+	'admin': {
 
 		'message': null,
 		'success': null,
