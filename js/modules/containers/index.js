@@ -1,14 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as admin_actions from './../actions/scroll';
 import anime from 'animejs';
 import SineAnimation from './dom/sine_animation';
+import * as index_actions from './../actions/index';
 
 @connect( store => {
 
 	return {
 
-		'scroll': store.scroll
+		'index': store.index
 
 	}
 

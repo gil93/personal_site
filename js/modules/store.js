@@ -3,12 +3,12 @@ import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import promise from 'redux-promise-middleware';
 import admin_reducer from './reducers/admin';
-import scroll_reducer from './reducers/scroll';
+import index_reducer from './reducers/index';
 
 const reducers = combineReducers({
 
 	'admin': admin_reducer,
-	'scroll': scroll_reducer
+	'index': index_reducer
 
 });
 
