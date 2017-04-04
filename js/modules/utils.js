@@ -1,6 +1,6 @@
 module.exports = {
 
-	polyfills: function () {
+	init: function () {
 
 		if ( !Array.prototype.map ) {
 
