@@ -42,8 +42,6 @@ export default class SineCurve {
 
 	sine_calc( count ) {
 
-		console.log( this.amp );
-
 		var self = this,
 			points = [0, self.amp * 2],
 			x = 0,
