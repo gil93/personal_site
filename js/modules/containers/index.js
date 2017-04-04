@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import anime from 'animejs';
 import SineAnimation from './dom/sine_animation';
 import * as index_actions from './../actions/index';
 
